@@ -94,6 +94,19 @@ Blueprint: `C:\Users\loran\.claude\plans\cosmic-kindling-origami.md`. Delivered:
 - Horror content **rewritten to actually terrify** (threats, body horror, the OWNER's address), earlier
   whisper hook, honest `ContentWarning`. Bands re-tuned `[12,24,45,80,140,240]`.
 
+### Onboarding + UX polish (2026-06-09)
+
+- **Guided tutorial** — `ui/hud/Tutorial.tsx`: a spotlight tour that highlights real elements by a
+  `data-tour="..."` attribute (on `topbar`/`resources`/`dive`/`menu`/`shop`/`dread`); missing targets fall
+  back to a centered card. Auto-opens once after the content warning (gated on `settings.tutorialSeen`,
+  saved); a topbar **?** button reopens it. The card measures itself and clamps into the viewport.
+- **Lost-Signal banner** — moved from the buried Dive-rail footer to a prominent pulsing top banner in
+  `App.tsx` (`.lost-signal-banner`) so the `DreadMeter` HUD can't cover it.
+- **Skill-tree spacing fixed** — `SkillTree.tsx` `COL 158→210`, slimmer nodes, level moved into a flex
+  header row (`.tree-node-head`) instead of an overlapping absolute badge.
+- **Crafting costs reset on prestige** — `content/crafting.ts` `recipeCost` now scales with
+  `stats.runMaxDepth` (resets on reboot) instead of lifetime `maxDepth`.
+
 Full earlier design doc / history: `C:\Users\loran\.claude\plans\jolly-painting-sedgewick.md`.
 
 ## Status & next steps (where we left off)
@@ -102,7 +115,9 @@ The Deep Overhaul (Phases A–F) is **complete and green** (typecheck + 46 tests
 landed: per-resource offline summary, **bank-the-haul** flash (`BankFlash.tsx` + `bankFlash` state +
 `audio.bank()`), dread-driven **voice ambient layer** + landmark sting + low-Signal heartbeat, and bespoke
 **Refusal** (trapping boss encounter) + **The Bottom** (`item.final` → ending) landmark menus. Extra nodes
-added (overclock/swarm/devour) + more Echo fragments.
+added (overclock/swarm/devour) + more Echo fragments. Onboarding tutorial + UX polish landed (above).
+**Shipped to the web:** live at https://winkwinknation.github.io/menuidle/ (repo `winkwinknation/menuidle`,
+auto-deploy on push to `main`), responsive for mobile. All work is committed + pushed.
 
 Only remaining work:
 1. **Steam integration + packaging** (the one item the user deferred) — wire `steamworks.js` behind
