@@ -10,11 +10,18 @@ session.
 ```bash
 npm install          # first time
 npm run dev          # Vite dev server + Electron fullscreen window (HMR)
-npm test             # Vitest (27 tests)
+npm test             # Vitest (46 tests)
 npm run typecheck    # tsc --noEmit
-npm run build        # vite build -> dist/
+npm run build        # vite build -> dist/ (static web build; relative base './')
 ```
 
+- **Live web build:** https://winkwinknation.github.io/menuidle/ — repo `winkwinknation/menuidle`,
+  auto-deployed from `main` by `.github/workflows/deploy.yml` (GitHub Pages, Actions source). The web
+  build is pure-browser (saves to `localStorage` via the `saveManager` fallback); Electron is desktop-only.
+  `vite.config.ts` `base: './'` keeps asset paths relative so the same `dist/` works on Pages *and* Electron.
+- **Responsive:** `global.css` has `@media (max-width: 768px)` (and 420px) rules — body stacks, the Dive
+  rail becomes a horizontal Signal strip (fill driven by a `--sig` CSS var), QuickBuy goes full-width,
+  modals/skill-tree go near-fullscreen. Playable on phones (touch = tap; skill tree pans via overflow scroll).
 - **F11** toggles fullscreen, **Esc** exits fullscreen. Auto-saves every 15s.
 - **Gotcha (already handled):** VSCode/terminals export `ELECTRON_RUN_AS_NODE=1`, which makes
   `electron .` boot as plain Node (`app` is undefined). `scripts/dev-electron.js` deletes that var
